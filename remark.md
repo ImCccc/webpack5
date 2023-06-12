@@ -273,7 +273,7 @@ module.exports = {
 };
 ```
 
-方式 2 添加 `plugins: ["import"],`：
+方式 2 package.json 添加 `plugins: ["import"],`：
 
 ```js
 module.exports = {
