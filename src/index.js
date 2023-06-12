@@ -1,8 +1,8 @@
 import "./css/index.css";
-import "./less/index.less";
-import "./scss/index.scss";
 import img from "./imgs/2.jpg";
 import add from "./js/math.js";
+import "./less/index.less";
+import "./scss/index.scss";
 
 const aaa = () => {
   const imgDom = document.createElement("img");
@@ -27,3 +27,16 @@ new Promise(() => {
   console.log([1, 2, 3].includes(1));
   new Map();
 });
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("注册成功: ", registration);
+      })
+      .catch((registrationError) => {
+        console.log("注册失败: ", registrationError);
+      });
+  });
+}

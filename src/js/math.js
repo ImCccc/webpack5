@@ -2,4 +2,4 @@ const add = (a, b) => {
   return a + b;
 };
 
-export default sum;
+export default add;
