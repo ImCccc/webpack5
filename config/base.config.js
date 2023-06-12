@@ -7,7 +7,8 @@ const mode = process.env.NODE_ENV;
 const isDev = mode === "development";
 const devtool = isDev ? "cheap-module-source-map" : "source-map";
 
-module.exports = {
+/** @type import("webpack").Configuration */
+const config = {
   mode,
   devtool,
   entry: "/src/index.js",
@@ -23,6 +24,27 @@ module.exports = {
     clean: true,
   },
 
+  module: {
+    rules: [
+      // https://www.webpackjs.com/guides/asset-modules#inlining-assets
+      {
+        test: /\.(png|jpe?g|git|webp)$/,
+        type: "asset",
+        parser: {
+          // 10 kb 转 base64, 默认 8kb
+          dataUrlCondition: { maxSize: 10 * 1024 },
+        },
+        //可以通过 output.assetModuleFilename 配置
+        // generator: { filename: "imgs/[hash:10][ext][query]" },
+      },
+      // 处理其他资源
+      {
+        test: /\.(woff2?|ttf)$/,
+        type: "asset/resource",
+      },
+    ],
+  },
+
   optimization: {
     // 代码分割配置
     // https://www.webpackjs.com/plugins/split-chunks-plugin/
@@ -36,3 +58,5 @@ module.exports = {
     },
   },
 };
+
+module.exports = config;
